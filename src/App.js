@@ -26,12 +26,13 @@ export default function App() {
       repository => repository.id === id
     );
     repositoriesLike[repositoryIndex].likes++;
-    setRepositories(repositoriesLike);
 
+    setRepositories([...repositoriesLike]);
+    
     await api.post(`/repositories/${id}/like`, {
       like: repositoriesLike[repositoryIndex].likes
     });
-  }
+  };
 
   return (
     <>
@@ -55,7 +56,7 @@ export default function App() {
               // Remember to replace "1" below with repository ID: {`repository-likes-${repository.id}`}
               testID={`repository-likes-${repository.id}`}
             >
-              {repository.likes} curtidas
+              {repository.likes} curtida{repository.likes > 1 ? 's' : ''}
             </Text>
           </View>
 
