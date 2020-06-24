@@ -20,7 +20,7 @@ export default function App() {
     });
   },[]);
 
-  async function handleLikeRepository(id) {
+/*   async function handleLikeRepository(id) {
     const repositoriesLike = repositories;
     const repositoryIndex = repositoriesLike.findIndex(
       repository => repository.id === id
@@ -32,6 +32,18 @@ export default function App() {
     await api.post(`/repositories/${id}/like`, {
       like: repositoriesLike[repositoryIndex].likes
     });
+  }; */
+
+  async function handleLikeRepository(id) {
+    const response = await api.post(`/repositories/${id}/like`);
+    
+    const repositoriesLike = repositories;
+    const repositoryIndex = repositoriesLike.findIndex(
+      repository => repository.id === id
+    );
+    repositoriesLike[repositoryIndex] = response.data;
+
+    setRepositories([...repositoriesLike]);
   };
 
   return (
